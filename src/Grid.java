@@ -18,26 +18,31 @@ public class Grid extends JPanel{
         this.lastModified = new Stack<>();
         this.halt = false;
         this.setLayout(new GridLayout(3, 3));
-        
-        this.reset();
-        this.setVisible(true);
-    }
-
-    public void reset() {
-        this.removeAll();
-        this.revalidate();
-        this.repaint();
-        this.currplayer = 0;
-        this.halt = false;
-        double screenSize = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         int fontsize = 60;
-        if (screenSize <= 1080) {
+        double screenSize = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        if (screenSize > 1080) {
             fontsize = 90;
         }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 grid[i][j] = new Cell(this, fontsize);
                 this.add(grid[i][j]);
+            }
+        }
+        this.setVisible(true);
+    }
+
+    public void reset() {
+        this.currplayer = 0;
+        this.halt = false;
+        this.lastModified.clear();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                Cell curr = grid[i][j];
+                if (curr.disabled()) {
+                    curr.toggleDisable();
+                }
+                curr.setText("");
             }
         }
     }

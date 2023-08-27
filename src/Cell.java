@@ -27,6 +27,10 @@ public class Cell extends JButton implements ActionListener{
         this.marked = !this.marked;
     }
 
+    public boolean disabled() {
+        return this.marked;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!marked) {
